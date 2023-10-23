@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/incora-test-task/static/js/main.636d0c9d.js",
+    "main.js": "/incora-test-task/static/js/main.c42128d8.js",
     "index.html": "/incora-test-task/index.html",
-    "main.636d0c9d.js.map": "/incora-test-task/static/js/main.636d0c9d.js.map"
+    "main.c42128d8.js.map": "/incora-test-task/static/js/main.c42128d8.js.map"
   },
   "entrypoints": [
-    "static/js/main.636d0c9d.js"
+    "static/js/main.c42128d8.js"
   ]
 }
