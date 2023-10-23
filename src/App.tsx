@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { FeedsPage } from './pages/FeedsPage';
+import { LoginPage } from './pages/LoginPage';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { FeedDetailsPage } from './pages/FeedDetailsPage';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path='/' element={<LoginPage />} />
+      <Route path='/feeds' element={<FeedsPage />} />
+      <Route path="/feeds/:id" element={<FeedDetailsPage />} />
+      <Route path='*' element={<NotFoundPage />} />
+    </Routes>
   );
-}
+};
 
 export default App;
