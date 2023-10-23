@@ -4,7 +4,7 @@
 ## Technologies:
 - TypeScript
 - React
-- React-Router
+- React Router
 - Material UI
 - Axios
 - LocalStorage
