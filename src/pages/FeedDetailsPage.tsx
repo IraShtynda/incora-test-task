@@ -12,12 +12,14 @@ import { Header } from '../components/Header';
 import { CommentCard } from '../components/CommentCard';
 import { getUser } from '../utils/getUser';
 import { Colors } from '../styles/theme';
+import { NotFoundPage } from './NotFoundPage';
 
 export const FeedDetailsPage: React.FC = () => {
   const [feed, setFeed] = useState<Feed | null>(null);
   const [comments, setComments] = useState<Comment[] | []>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const { id } = useParams();
   const name = getUser().name;
 
@@ -26,7 +28,12 @@ export const FeedDetailsPage: React.FC = () => {
 
     getFeed(Number(id))
       .then((response) => setFeed(response.data))
-      .catch(() => setError(true))
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setNotFound(true);
+        }
+        setError(true);
+      })
       .finally(() => setLoading(false));
 
     getComments(Number(id))
@@ -35,22 +42,26 @@ export const FeedDetailsPage: React.FC = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
+  if (notFound) {
+    return <NotFoundPage/>;
+  }
+
   return (<>
     <Header name={name} />
 
-    <Container 
-      maxWidth="md" 
+    <Container
+      maxWidth="md"
       sx={{ position: 'relative', top: '84px', paddingBlock: '80px' }}
     >
       <Button
         variant="text"
         startIcon={<ArrowBackIosIcon style={{ color: Colors.dark }} />}
       >
-        <Link 
-          to="/feeds" 
+        <Link
+          to="/feeds"
           style={{ textDecoration: 'none', color: Colors.dark, fontWeight: '600' }}
         >
-            Back to Last Feeds
+          Back to Last Feeds
         </Link>
       </Button>
 
@@ -74,7 +85,7 @@ export const FeedDetailsPage: React.FC = () => {
 
         {comments.length > 0 ? (<Box>
           {comments.map((comment =>
-            <CommentCard comment={comment} key={comment.id}/>
+            <CommentCard comment={comment} key={comment.id} />
           ))}
         </Box>
         ) : (
